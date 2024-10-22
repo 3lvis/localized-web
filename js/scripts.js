@@ -12,6 +12,9 @@ const loadLanguage = async (lang) => {
         element.textContent = strings[key];
       }
     });
+
+    // Set the dropdown value to the current language
+    document.getElementById('language-select').value = lang;
   } catch (error) {
     console.error("Error loading language file:", error);
   }
@@ -24,9 +27,10 @@ const switchLanguage = (lang) => {
   loadLanguage(lang);                                   // Load new language
 };
 
-// Add event listeners to the language switcher buttons
-document.getElementById('switch-en').addEventListener('click', () => switchLanguage('en'));
-document.getElementById('switch-fr').addEventListener('click', () => switchLanguage('fr'));
+// Add event listener to the language dropdown
+document.getElementById('language-select').addEventListener('change', (event) => {
+  switchLanguage(event.target.value);
+});
 
 // Check for a saved language preference or use the URL to determine language
 const savedLanguage = localStorage.getItem('preferredLanguage');
